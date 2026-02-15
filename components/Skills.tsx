@@ -17,6 +17,21 @@ const Skills: React.FC = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
     <section id="skills" className="py-32 bg-slate-50 dark:bg-slate-950 relative transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -36,15 +51,18 @@ const Skills: React.FC = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-          {SKILLS.map((skill, index) => (
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {SKILLS.map((skill) => (
             <motion.div
               key={skill.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary/30 dark:hover:border-slate-600 hover:shadow-lg hover:shadow-primary/5 dark:hover:bg-slate-900 transition-all group flex flex-col items-center justify-center text-center h-48"
+              variants={itemVariants}
+              className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary/30 dark:hover:border-slate-600 hover:shadow-lg hover:shadow-primary/5 dark:hover:bg-slate-900 group flex flex-col items-center justify-center text-center h-48 transition-colors transition-shadow duration-300"
             >
               <div 
                 className="w-16 h-16 mb-4 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-950 shadow-inner p-3 transition-transform group-hover:scale-110 duration-300"
@@ -68,7 +86,7 @@ const Skills: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
         
         <div className="mt-12 text-center md:hidden">
            <Link to="/skills" className="inline-flex px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white rounded-xl transition-colors items-center gap-2 font-medium shadow-sm">

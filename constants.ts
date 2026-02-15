@@ -6,6 +6,7 @@ export const PERSONAL_INFO = {
   email: "mominfaraz444@gmail.com",
   github: "https://github.com/momokazi",
   linkedin: "https://linkedin.com/in/muhammad-husnain-momin-114503389",
+  instagram: "https://www.instagram.com/mominkazii/",
   bio: "Passionate developer specializing in Flutter, Node.js, and cloud technologies. I build high-performance mobile applications and scalable backends. Currently exploring the intersection of AI integration and fluid UI interactions.",
   location: "Pakistan",
   // Updated avatar from LinkedIn

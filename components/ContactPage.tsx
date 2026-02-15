@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../constants';
-import { Send, Mail, User, MessageSquare, Briefcase, MapPin, Github, Linkedin, Clock, CheckCircle2 } from 'lucide-react';
+import { Send, Mail, User, MessageSquare, Briefcase, MapPin, Github, Linkedin, Clock, CheckCircle2, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ContactPage: React.FC = () => {
@@ -83,6 +83,7 @@ const ContactPage: React.FC = () => {
                 <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex gap-4">
                   <SocialButton href={PERSONAL_INFO.github} icon={<Github size={20} />} label="GitHub" />
                   <SocialButton href={PERSONAL_INFO.linkedin} icon={<Linkedin size={20} />} label="LinkedIn" />
+                  <SocialButton href={PERSONAL_INFO.instagram} icon={<Instagram size={20} />} label="Instagram" />
                 </div>
               </div>
             </div>

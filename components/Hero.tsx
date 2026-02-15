@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, Instagram } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 
 const Hero: React.FC = () => {
@@ -86,6 +86,7 @@ const Hero: React.FC = () => {
           <div className="flex items-center justify-center gap-8">
             <SocialLink href={PERSONAL_INFO.github} icon={<Github size={22} />} label="GitHub" />
             <SocialLink href={PERSONAL_INFO.linkedin} icon={<Linkedin size={22} />} label="LinkedIn" />
+            <SocialLink href={PERSONAL_INFO.instagram} icon={<Instagram size={22} />} label="Instagram" />
             <SocialLink href={`mailto:${PERSONAL_INFO.email}`} icon={<Mail size={22} />} label="Email" />
           </div>
         </motion.div>
