@@ -18,19 +18,19 @@ const Skills: React.FC = () => {
   };
 
   return (
-    <section id="skills" className="py-32 bg-slate-950 relative">
+    <section id="skills" className="py-32 bg-slate-50 dark:bg-slate-950 relative transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
           <div className="text-center md:text-left">
             <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Stack</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Technical Arsenal</h2>
-            <p className="text-slate-400 max-w-2xl text-lg">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Technical Arsenal</h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-lg">
               I leverage a modern tech stack to build robust, scalable, and beautiful applications.
             </p>
           </div>
           <Link 
             to="/skills" 
-            className="hidden md:flex px-6 py-3 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white rounded-xl transition-colors items-center gap-2 font-medium"
+            className="hidden md:flex px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white rounded-xl transition-colors items-center gap-2 font-medium shadow-sm"
           >
             View Full Skillset <ArrowRight size={18} />
           </Link>
@@ -44,10 +44,10 @@ const Skills: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-slate-600 hover:bg-slate-900 transition-all group flex flex-col items-center justify-center text-center h-48"
+              className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary/30 dark:hover:border-slate-600 hover:shadow-lg hover:shadow-primary/5 dark:hover:bg-slate-900 transition-all group flex flex-col items-center justify-center text-center h-48"
             >
               <div 
-                className="w-16 h-16 mb-4 flex items-center justify-center rounded-xl bg-slate-950 shadow-inner p-3 transition-transform group-hover:scale-110 duration-300"
+                className="w-16 h-16 mb-4 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-950 shadow-inner p-3 transition-transform group-hover:scale-110 duration-300"
               >
                 {skill.imagePath ? (
                   <img src={skill.imagePath} alt={skill.name} className="w-full h-full object-contain" />
@@ -56,11 +56,11 @@ const Skills: React.FC = () => {
                 )}
               </div>
               
-              <h3 className="text-white font-bold text-lg mb-1">{skill.name}</h3>
+              <h3 className="text-slate-900 dark:text-white font-bold text-lg mb-1">{skill.name}</h3>
               <p className="text-slate-500 text-sm font-medium">{skill.category.split('&')[0].trim()}</p>
               
               {/* Proficiency Bar */}
-              <div className="w-full h-1 bg-slate-800 rounded-full mt-4 overflow-hidden">
+              <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-full mt-4 overflow-hidden">
                 <div 
                   className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000 group-hover:opacity-100 opacity-70"
                   style={{ width: `${skill.level}%` }}
@@ -71,7 +71,7 @@ const Skills: React.FC = () => {
         </div>
         
         <div className="mt-12 text-center md:hidden">
-           <Link to="/skills" className="inline-flex px-8 py-4 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white rounded-xl transition-colors items-center gap-2 font-medium">
+           <Link to="/skills" className="inline-flex px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white rounded-xl transition-colors items-center gap-2 font-medium shadow-sm">
             View Full Skillset <ArrowRight size={18} />
            </Link>
         </div>

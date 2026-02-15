@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -40,8 +41,7 @@
     </script>
     <style>
       body {
-        background-color: #F7FAFC;
-        color: #2D3748;
+        /* Default base styles are handled by React classes, but we set a base here */
         overflow-x: hidden;
       }
       /* Custom scrollbar */
@@ -49,7 +49,7 @@
         width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #F7FAFC;
+        background: transparent;
       }
       ::-webkit-scrollbar-thumb {
         background: #CBD5E0;
@@ -58,19 +58,28 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #A0AEC0;
       }
+      .dark ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #334155;
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
     "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "framer-motion": "https://esm.sh/framer-motion@^12.34.0",
-    "vite": "https://esm.sh/vite@^7.3.1"
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "framer-motion": "https://esm.sh/framer-motion@^12.34.0"
   }
 }
 </script>

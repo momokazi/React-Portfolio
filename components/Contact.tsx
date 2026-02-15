@@ -32,48 +32,48 @@ const Contact: React.FC<any> = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 border-t border-slate-800">
+    <section id="contact" className="py-24 bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-12">
-           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Let's Build Something Amazing</h2>
-           <p className="text-slate-400 text-lg">
+           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Let's Build Something Amazing</h2>
+           <p className="text-slate-600 dark:text-slate-400 text-lg">
              Have a project in mind or want to hire me? Send me a message and I'll get back to you within 24 hours.
            </p>
         </div>
 
-        <div className="bg-slate-900 p-8 rounded-3xl border border-slate-800 shadow-2xl">
+        <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl">
           {formState === 'success' ? (
             <div className="text-center py-12">
-              <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Send size={40} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-              <p className="text-slate-400">Thanks for reaching out, {PERSONAL_INFO.name.split(' ')[0]} will be in touch soon.</p>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Message Sent!</h3>
+              <p className="text-slate-600 dark:text-slate-400">Thanks for reaching out, {PERSONAL_INFO.name.split(' ')[0]} will be in touch soon.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Name</label>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Name</label>
                   <div className="relative">
-                    <User size={18} className="absolute left-4 top-3.5 text-slate-500" />
-                    <input required name="name" type="text" className="w-full pl-12 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="John Doe" />
+                    <User size={18} className="absolute left-4 top-3.5 text-slate-400 dark:text-slate-500" />
+                    <input required name="name" type="text" className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder-slate-400 dark:placeholder-slate-600" placeholder="John Doe" />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email</label>
                   <div className="relative">
-                    <Mail size={18} className="absolute left-4 top-3.5 text-slate-500" />
-                    <input required name="email" type="email" className="w-full pl-12 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="john@example.com" />
+                    <Mail size={18} className="absolute left-4 top-3.5 text-slate-400 dark:text-slate-500" />
+                    <input required name="email" type="email" className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder-slate-400 dark:placeholder-slate-600" placeholder="john@example.com" />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">I am a...</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">I am a...</label>
                 <div className="relative">
-                  <Briefcase size={18} className="absolute left-4 top-3.5 text-slate-500" />
-                  <select name="role" className="w-full pl-12 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none">
+                  <Briefcase size={18} className="absolute left-4 top-3.5 text-slate-400 dark:text-slate-500" />
+                  <select name="role" className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer">
                     <option>Technical Recruiter</option>
                     <option>Business Owner</option>
                     <option>Developer</option>
@@ -83,10 +83,10 @@ const Contact: React.FC<any> = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Message</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Message</label>
                 <div className="relative">
-                  <MessageSquare size={18} className="absolute left-4 top-3.5 text-slate-500" />
-                  <textarea required name="message" rows={5} className="w-full pl-12 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none" placeholder="Tell me about your project..."></textarea>
+                  <MessageSquare size={18} className="absolute left-4 top-3.5 text-slate-400 dark:text-slate-500" />
+                  <textarea required name="message" rows={5} className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none placeholder-slate-400 dark:placeholder-slate-600" placeholder="Tell me about your project..."></textarea>
                 </div>
               </div>
 
@@ -102,7 +102,7 @@ const Contact: React.FC<any> = () => {
           )}
         </div>
         
-        <div className="mt-16 text-center pt-8 border-t border-slate-800 text-slate-500 text-sm">
+        <div className="mt-16 text-center pt-8 border-t border-slate-200 dark:border-slate-800 text-slate-500 text-sm">
            <p>&copy; {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.</p>
            <p className="mt-2">Built with React, Tailwind CSS & Google Gemini</p>
         </div>
