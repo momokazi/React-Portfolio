@@ -30,10 +30,10 @@ const Projects: React.FC = () => {
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.4 }}
-              className="group bg-white dark:bg-slate-950 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-primary/20 dark:hover:border-slate-600 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 flex flex-col md:flex-row h-full"
+              className="group bg-white dark:bg-slate-950 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-primary/20 dark:hover:border-slate-600 hover:shadow-xl hover:shadow-primary/5 transition-all duration-200 flex flex-col md:flex-row h-full"
             >
               {/* Logo Side / Color Strip */}
               <div className="w-full md:w-24 bg-slate-50 dark:bg-slate-900 flex md:flex-col items-center justify-between p-6 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 shrink-0">
