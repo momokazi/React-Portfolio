@@ -146,23 +146,6 @@ const AboutPage: React.FC = () => {
                 </div>
               </motion.div>
             ))}
-            
-             <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="relative flex gap-8 items-start group"
-              >
-                <div className="relative z-10 w-14 h-14 rounded-full flex items-center justify-center shrink-0 border-4 border-slate-50 dark:border-slate-950 shadow-xl bg-slate-700 text-white">
-                  <GraduationCap size={20} />
-                </div>
-                 <div className="flex-1 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-colors shadow-sm">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">BS Computer Science</h3>
-                    <div className="text-primary text-sm font-medium mb-1">University of Technology</div>
-                    <span className="text-xs text-slate-500 block mb-2">2018 - 2022</span>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm">Graduated with a focus on Software Engineering, Data Structures, and Mobile Computing.</p>
-                 </div>
-              </motion.div>
           </div>
         </div>
 
