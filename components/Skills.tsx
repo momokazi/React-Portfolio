@@ -1,7 +1,8 @@
 import React from 'react';
 import { SKILLS } from '../constants';
-import { Smartphone, Code, Server, Database, GitBranch, Terminal } from 'lucide-react';
+import { Smartphone, Code, Server, Database, GitBranch, Terminal, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Skills: React.FC = () => {
   // Helper to get Icon if image is missing
@@ -19,11 +20,20 @@ const Skills: React.FC = () => {
   return (
     <section id="skills" className="py-32 bg-slate-950 relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Technical Arsenal</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            I leverage a modern tech stack to build robust, scalable, and beautiful applications.
-          </p>
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+          <div className="text-center md:text-left">
+            <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Stack</span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Technical Arsenal</h2>
+            <p className="text-slate-400 max-w-2xl text-lg">
+              I leverage a modern tech stack to build robust, scalable, and beautiful applications.
+            </p>
+          </div>
+          <Link 
+            to="/skills" 
+            className="hidden md:flex px-6 py-3 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white rounded-xl transition-colors items-center gap-2 font-medium"
+          >
+            View Full Skillset <ArrowRight size={18} />
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
@@ -58,6 +68,12 @@ const Skills: React.FC = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+        
+        <div className="mt-12 text-center md:hidden">
+           <Link to="/skills" className="inline-flex px-8 py-4 bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white rounded-xl transition-colors items-center gap-2 font-medium">
+            View Full Skillset <ArrowRight size={18} />
+           </Link>
         </div>
       </div>
     </section>

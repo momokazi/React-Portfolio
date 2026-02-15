@@ -1,9 +1,13 @@
 import React from 'react';
 import { PROJECTS } from '../constants';
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Projects: React.FC = () => {
+  // Show only first 4 projects as featured
+  const featuredProjects = PROJECTS.slice(0, 4);
+
   return (
     <section id="projects" className="py-32 bg-slate-900/50 border-y border-slate-800 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
@@ -15,20 +19,21 @@ const Projects: React.FC = () => {
               Highlights from my journey in mobile and backend development.
             </p>
           </div>
-          <a href="https://github.com/momokazi" target="_blank" className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors flex items-center gap-2 font-medium">
-            View Github <Github size={18} />
-          </a>
+          <Link to="/projects" className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors flex items-center gap-2 font-medium">
+            View All Projects <ArrowRight size={18} />
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {PROJECTS.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 hover:border-slate-600 transition-all duration-300 flex flex-col md:flex-row h-full"
+              transition={{ delay: index * 0.1, duration: 0.4 }}
+              className="group bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 hover:border-slate-600 hover:shadow-2xl hover:shadow-primary/5 transition-colors duration-300 flex flex-col md:flex-row h-full"
             >
               {/* Logo Side / Color Strip */}
               <div className="w-full md:w-24 bg-slate-900 flex md:flex-col items-center justify-between p-6 border-b md:border-b-0 md:border-r border-slate-800 shrink-0">
@@ -39,7 +44,7 @@ const Projects: React.FC = () => {
                  </div>
                  <div className="hidden md:block w-px h-12 bg-slate-800 my-4"></div>
                  <div className="text-slate-600 md:vertical-writing-mode text-xs font-bold tracking-widest uppercase">
-                    {project.id}
+                    {project.category}
                  </div>
               </div>
 
@@ -59,7 +64,7 @@ const Projects: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-slate-400 mb-6 flex-1 leading-relaxed">
+                <p className="text-slate-400 mb-6 flex-1 leading-relaxed line-clamp-3">
                   {project.overview}
                 </p>
 
@@ -78,6 +83,12 @@ const Projects: React.FC = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+        
+        <div className="mt-12 text-center md:hidden">
+           <Link to="/projects" className="inline-flex px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors items-center gap-2 font-medium">
+            View Full Gallery <ArrowRight size={18} />
+           </Link>
         </div>
       </div>
     </section>

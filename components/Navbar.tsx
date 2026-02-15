@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,38 +17,68 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+
+    // If it's a section link (#)
+    if (href.startsWith('#')) {
+      const id = href.substring(1);
+      if (location.pathname !== '/') {
+        // If not on home page, navigate home then scroll
+        navigate('/');
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        // Just scroll
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // It's a page link
+      navigate(href);
+      window.scrollTo(0, 0);
+    }
+  };
+
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/#home' },
+    { name: 'About', href: '/about' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Projects', href: '/projects' }, 
+    { name: 'Contact', href: '/contact' }, // Direct link to page
   ];
 
   return (
     <nav 
       className={`fixed w-full z-40 transition-all duration-300 ${
-        isScrolled ? 'bg-slate-900/90 backdrop-blur-md border-b border-slate-800 py-4' : 'bg-transparent py-6'
+        isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 shadow-lg shadow-black/10' : 'bg-transparent py-6'
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-white tracking-tighter">
+        <Link to="/" className="text-2xl font-bold text-white tracking-tighter" onClick={() => window.scrollTo(0,0)}>
           {PERSONAL_INFO.name.split(' ')[0]}<span className="text-accent">.</span>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
-              href={link.href} 
-              className="text-gray-300 hover:text-accent text-sm font-medium transition-colors"
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href.includes('#') ? '#' + link.href.split('#')[1] : link.href)}
+              className={`text-sm font-medium transition-colors ${
+                (location.pathname === link.href) || (location.pathname === '/' && link.href === '/#home')
+                ? 'text-white' 
+                : 'text-gray-400 hover:text-primary'
+              }`}
             >
               {link.name}
             </a>
           ))}
           <a 
-            href="#contact" 
+            href="/contact" 
+            onClick={(e) => handleNavClick(e, '/contact')}
             className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-medium text-white transition-all"
           >
             Hire Me
@@ -65,11 +98,11 @@ const Navbar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-slate-900 border-b border-slate-800 p-6 flex flex-col gap-4 animate-in slide-in-from-top-5">
           {navLinks.map((link) => (
-            <a 
+             <a 
               key={link.name} 
-              href={link.href} 
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href.includes('#') ? '#' + link.href.split('#')[1] : link.href)}
               className="text-gray-300 hover:text-white text-lg font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
             </a>

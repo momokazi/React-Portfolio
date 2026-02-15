@@ -1,8 +1,12 @@
 import React from 'react';
-import { PERSONAL_INFO } from '../constants';
-import { Briefcase, GraduationCap, MapPin, Calendar } from 'lucide-react';
+import { PERSONAL_INFO, EXPERIENCE } from '../constants';
+import { Briefcase, MapPin, Calendar, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About: React.FC<any> = () => {
+  // Show only top 3 roles
+  const recentExperience = EXPERIENCE.slice(0, 3);
+
   return (
     <section id="about" className="py-24 bg-slate-900 border-t border-slate-800">
       <div className="container mx-auto px-6">
@@ -19,7 +23,7 @@ const About: React.FC<any> = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="p-4 bg-slate-950 rounded-xl border border-slate-800">
                 <div className="flex items-center gap-3 mb-2 text-white font-semibold">
                   <MapPin size={20} className="text-primary" /> Location
@@ -33,35 +37,37 @@ const About: React.FC<any> = () => {
                 <p className="text-slate-400">2+ Years</p>
               </div>
             </div>
+
+            <Link 
+              to="/about"
+              className="inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors"
+            >
+              Read Full Bio <ArrowRight size={18} />
+            </Link>
           </div>
 
           {/* Timeline / Visual */}
           <div className="relative border-l-2 border-slate-800 ml-3 lg:ml-0 pl-8 space-y-12">
-            <div className="relative">
-              <span className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-primary"></span>
-              <h3 className="text-xl font-bold text-white mb-1">Freelance Developer</h3>
-              <p className="text-sm text-slate-500 mb-2 flex items-center gap-2"><Calendar size={14}/> 2022 - Present</p>
-              <p className="text-slate-400">
-                Delivered 10+ mobile and web applications for global clients using Flutter and Firebase.
-              </p>
-            </div>
+            {recentExperience.map((item, index) => (
+              <div key={index} className="relative">
+                <span className={`absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 ${index === 0 ? 'bg-primary' : index === 1 ? 'bg-secondary' : 'bg-slate-600'}`}></span>
+                <h3 className="text-xl font-bold text-white mb-1">{item.role}</h3>
+                <p className="text-sm text-slate-500 mb-2 flex items-center gap-2">
+                  <Briefcase size={14} className="text-primary" /> {item.company}
+                </p>
+                <p className="text-xs text-slate-500 mb-2 flex items-center gap-2 uppercase tracking-wider">
+                  <Calendar size={14}/> {item.period}
+                </p>
+                <p className="text-slate-400 text-sm line-clamp-2">
+                  {item.description}
+                </p>
+              </div>
+            ))}
             
             <div className="relative">
-              <span className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-secondary"></span>
-              <h3 className="text-xl font-bold text-white mb-1">Flutter Developer</h3>
-              <p className="text-sm text-slate-500 mb-2 flex items-center gap-2"><Calendar size={14}/> 2021 - 2022</p>
-              <p className="text-slate-400">
-                Collaborated with cross-functional teams to build and deploy featured-packed Android/iOS apps.
-              </p>
-            </div>
-
-             <div className="relative">
-              <span className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-slate-600"></span>
-              <h3 className="text-xl font-bold text-white mb-1">Computer Science Degree</h3>
-              <p className="text-sm text-slate-500 mb-2 flex items-center gap-2"><Calendar size={14}/> 2018 - 2022</p>
-              <p className="text-slate-400">
-                Focused on Software Engineering, Data Structures, and Mobile Computing.
-              </p>
+               <Link to="/about" className="text-sm text-slate-500 hover:text-white transition-colors flex items-center gap-1 mt-4">
+                  View full history <ArrowRight size={14} />
+               </Link>
             </div>
           </div>
 
