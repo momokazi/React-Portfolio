@@ -10,7 +10,7 @@ export const PERSONAL_INFO = {
   bio: "Passionate developer specializing in Flutter, Node.js, and cloud technologies. I build high-performance mobile applications and scalable backends. Currently exploring the intersection of AI integration and fluid UI interactions.",
   location: "Pakistan",
   // Updated avatar from LinkedIn
-  avatar: "https://media.licdn.com/dms/image/v2/D5603AQFoF0U1x26mug/profile-displayphoto-scale_400_400/B56ZsoOrGGIYAg-/0/1765906496093?e=1772668800&v=beta&t=ZF2yTnYvfNGVdwKuXa8Xt5qkwMZGn-VIeVmiSpbBNyA" 
+  avatar: "https://media.licdn.com/dms/image/v2/D5603AQFoF0U1x26mug/profile-displayphoto-scale_400_400/B56ZsoOrGGIYAg-/0/1765906496093?e=1774483200&v=beta&t=4zscZYsSUE-1PH9-A2qyONK8tx-QYiFem9HPnLB8OMw" 
 };
 
 export const SKILLS: Skill[] = [
