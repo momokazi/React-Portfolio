@@ -91,7 +91,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Nov 2025 - Present",
     type: "Full-time",
     location: "Lahore, Punjab, Pakistan",
-    logo: "https://media.licdn.com/dms/image/v2/D560BAQEkMo1pDtz-ng/company-logo_200_200/company-logo_200_200/0/1721909756163/tech_scale_io_logo?e=1772668800&v=beta&t=5-_loOQriSSwbwzoXaVHFwAY6dKiDfhd8fXHK6guFUE",
+    logo: "https://res.cloudinary.com/dcd8npsql/image/upload/v1773827912/tech_scale_io_logo_cv8idd.jpg",
     description: "Contributing to high-impact mobile solutions, focusing on scalable architecture and performance optimization."
   },
   {
@@ -100,7 +100,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Nov 2025 - Present",
     type: "Full-time",
     location: "Lahore",
-    logo: "https://media.licdn.com/dms/image/v2/D4E0BAQEz05NYJLZgNg/company-logo_200_200/B4EZweVpF8KoAI-/0/1770035516134/dobby_io_logo?e=1772668800&v=beta&t=TlVtuFpXtdyyFNgWB4RdEEeCNtWQigZ-z9DFapgzMJg",
+    logo: "https://res.cloudinary.com/dcd8npsql/image/upload/v1773827838/dobby_io_logo_cgqxx4.jpg",
     description: "Developing cross-platform mobile applications with a focus on seamless user experience and robust state management."
   },
   {
@@ -127,7 +127,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Aug 2024 - Oct 2024",
     type: "Full-time",
     location: "Lahore, Punjab, Pakistan",
-    logo: "https://media.licdn.com/dms/image/v2/D4E0BAQE2fJB4fDDyOg/company-logo_200_200/company-logo_200_200/0/1723896865194?e=1772668800&v=beta&t=oJUG_n9e8kfq1Cu9_sJZ3gbSg7wx5EtiJJ_wbz0etYk",
+    logo: "https://res.cloudinary.com/dcd8npsql/image/upload/v1773827738/1723896865194_m8ooza.jpg",
     description: "Designed their mobile app using Flutter and Dart. Integrated Firebase for authentication and data storage. Delivered features on tight schedules."
   },
   {
