@@ -109,7 +109,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Aug 2025 - Nov 2025",
     type: "Internship",
     location: "Lahore, Punjab, Pakistan",
-    logo: "https://media.licdn.com/dms/image/v2/D560BAQEkMo1pDtz-ng/company-logo_200_200/company-logo_200_200/0/1721909756163/tech_scale_io_logo?e=1772668800&v=beta&t=5-_loOQriSSwbwzoXaVHFwAY6dKiDfhd8fXHK6guFUE",
+    logo: "https://res.cloudinary.com/dcd8npsql/image/upload/v1773827912/tech_scale_io_logo_cv8idd.jpg",
     description: "Gained hands-on experience in mobile application development, working with Flutter and integrating complex APIs."
   },
   {
