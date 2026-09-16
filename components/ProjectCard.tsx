@@ -102,7 +102,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, classN
             rel="noopener noreferrer"
             className="flex flex-1 items-center justify-center gap-2 border-3 border-ink bg-flame px-3 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition-colors duration-100 hover:bg-ink hover:text-paper"
           >
-            <ArrowUpRight size={16} /> Demo
+            <ArrowUpRight size={16} /> {project.demoLabel ?? 'Demo'}
           </a>
         )}
       </div>

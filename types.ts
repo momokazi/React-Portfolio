@@ -16,6 +16,8 @@ export interface Project {
   year: string;
   githubUrl?: string;
   demoUrl?: string;
+  /** Button text for demoUrl — "Demo" is wrong for a package listing. */
+  demoLabel?: string;
   /** Real screenshot, once one exists. Cards fall back to a type-led block. */
   imageUrl?: string;
 }
@@ -45,6 +47,27 @@ export interface ExperienceItem {
   type: string;
   location: string;
   description: string;
+  /** Concrete outcomes for this role. Rendered as a list under the summary. */
+  highlights?: string[];
   /** URL for company logo. */
   logo?: string;
+}
+
+export interface EducationItem {
+  institution: string;
+  qualification: string;
+  period: string;
+  location: string;
+}
+
+export interface Certification {
+  name: string;
+  issuer: string;
+}
+
+export interface CommunityRole {
+  role: string;
+  organisation: string;
+  period: string;
+  description: string;
 }

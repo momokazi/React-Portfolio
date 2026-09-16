@@ -28,8 +28,9 @@ const About: React.FC = () => {
           <div className="mt-6 space-y-4 text-lg font-medium leading-relaxed text-muted">
             <p>
               I started out wanting to know why apps felt fast or slow, which turned into a
-              career writing them. These days that means Flutter on the front and Node.js
-              behind it, so I am rarely blocked waiting on someone else&apos;s endpoint.
+              career writing them. At Techscale that means Flutter for a field-operations
+              platform used by coffee-service operators across Europe and the UK — five
+              different user roles, and technicians who often have no signal at all.
             </p>
             <p>
               Outside the day job I write academic research for clients abroad — which, oddly,
@@ -43,7 +44,7 @@ const About: React.FC = () => {
               <MapPin size={12} /> {PERSONAL_INFO.location}
             </Badge>
             <Badge variant="surface" className="shadow-brutal">
-              Since 2022
+              BSCS, Riphah &rsquo;25
             </Badge>
             <Badge variant="surface" className="shadow-brutal">
               Open to remote

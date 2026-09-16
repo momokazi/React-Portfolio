@@ -4,7 +4,7 @@ Personal portfolio site. React + TypeScript + Vite, styled with Tailwind in a
 neo-brutalist direction: thick ink borders, hard offset shadows, flat saturated
 colour blocks, stepped transitions rather than eased ones.
 
-Live at [momin.dev](https://github.com/momokazi) · deployed on Vercel from `main`.
+Live at [husnain-momin.vercel.app](https://husnain-momin.vercel.app) · deployed on Vercel from `main`.
 
 ## Running it
 

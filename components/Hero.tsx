@@ -1,5 +1,14 @@
 import React from 'react';
-import { ArrowRight, Github, Linkedin, Mail, Instagram, MapPin } from 'lucide-react';
+import {
+  ArrowRight,
+  Github,
+  Linkedin,
+  Mail,
+  Instagram,
+  MapPin,
+  Package,
+  Smartphone,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PERSONAL_INFO } from '../constants';
 import { Badge } from './ui/Badge';
@@ -27,6 +36,25 @@ const Hero: React.FC = () => {
           <p className="mt-7 max-w-xl text-lg font-medium leading-relaxed text-muted md:text-xl">
             {PERSONAL_INFO.bio}
           </p>
+
+          {/* The two things that are publicly verifiable — worth saying early. */}
+          <ul className="mt-7 flex flex-wrap gap-2">
+            <li>
+              <a
+                href={PERSONAL_INFO.pubDev}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border-3 border-ink bg-sky px-3 py-2 font-mono text-xs font-bold uppercase tracking-wide text-ink shadow-brutal transition-transform duration-100 ease-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+              >
+                <Package size={14} /> Package on pub.dev
+              </a>
+            </li>
+            <li>
+              <span className="flex items-center gap-2 border-3 border-ink bg-rose px-3 py-2 font-mono text-xs font-bold uppercase tracking-wide text-ink shadow-brutal">
+                <Smartphone size={14} /> App on Google Play
+              </span>
+            </li>
+          </ul>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Button asChild variant="primary" size="lg">
@@ -75,7 +103,7 @@ const Hero: React.FC = () => {
 
           {/* Top-left so it never lands on the caption row below the photo. */}
           <span className="absolute -left-4 -top-4 rotate-[-8deg] border-3 border-ink bg-acid px-3 py-2 font-display text-sm uppercase text-ink shadow-brutal">
-            Est. 2022
+            BSCS &rsquo;25
           </span>
         </div>
       </div>
