@@ -17,6 +17,9 @@ const toneBg: Record<string, string> = {
 };
 
 const Skills: React.FC = () => {
+  // Teaser only — the full grouped list lives on /skills.
+  const featured = SKILLS.slice(0, 6);
+
   return (
     <section id="skills" className="border-b-3 border-ink bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
@@ -25,7 +28,7 @@ const Skills: React.FC = () => {
             eyebrow="The stack"
             tone="sky"
             title="What I reach for"
-            lead="No percentage bars. Here is what each one actually does in my work."
+            lead={`No percentage bars. Here is what each one actually does in my work — six of ${SKILLS.length}.`}
           />
           <Button asChild variant="neutral" size="md" className="shrink-0 self-start md:self-end">
             <Link to="/skills">
@@ -35,7 +38,7 @@ const Skills: React.FC = () => {
         </div>
 
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SKILLS.map((skill) => (
+          {featured.map((skill) => (
             <li key={skill.name}>
               <Card interactive className="flex h-full items-start gap-4 bg-paper p-5">
                 <span

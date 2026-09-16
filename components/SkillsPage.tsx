@@ -1,5 +1,5 @@
 import React from 'react';
-import { Braces, Layout, Server, Terminal, Github } from 'lucide-react';
+import { Braces, Database, Layout, Server, Terminal, Github } from 'lucide-react';
 import { PERSONAL_INFO, SKILLS } from '../constants';
 import { cn } from '../lib/utils';
 import { Button } from './ui/Button';
@@ -21,13 +21,19 @@ const CATEGORIES = [
     description: 'Enough to build and run the services my apps talk to.',
   },
   {
-    id: 'Other Languages',
-    icon: Braces,
-    tone: 'bg-grape',
-    description: 'Picked up at university, still useful.',
+    id: 'Databases',
+    icon: Database,
+    tone: 'bg-mint',
+    description: 'Relational and document, depending on the shape of the data.',
   },
   {
-    id: 'Tools & Design',
+    id: 'Languages',
+    icon: Braces,
+    tone: 'bg-grape',
+    description: 'Outside of Dart.',
+  },
+  {
+    id: 'Tools & Systems',
     icon: Terminal,
     tone: 'bg-rose',
     description: 'The day-to-day around the code.',
