@@ -1,98 +1,66 @@
 import React from 'react';
-import { SKILLS } from '../constants';
-import { Smartphone, Code, Server, Database, GitBranch, Terminal, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SKILLS } from '../constants';
+import { cn } from '../lib/utils';
+import { Button } from './ui/Button';
+import { Card } from './ui/Card';
+import { SectionHeading } from './ui/SectionHeading';
+
+const toneBg: Record<string, string> = {
+  flame: 'bg-flame',
+  acid: 'bg-acid',
+  sky: 'bg-sky',
+  grape: 'bg-grape',
+  rose: 'bg-rose',
+  mint: 'bg-mint',
+};
 
 const Skills: React.FC = () => {
-  // Helper to get Icon if image is missing
-  const getIcon = (iconStr: string) => {
-    switch(iconStr) {
-      case 'Smartphone': return <Smartphone size={24} />;
-      case 'Code': return <Code size={24} />;
-      case 'Server': return <Server size={24} />;
-      case 'Database': return <Database size={24} />;
-      case 'GitBranch': return <GitBranch size={24} />;
-      default: return <Terminal size={24} />;
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-  };
-
   return (
-    <section id="skills" className="py-32 bg-slate-50 dark:bg-slate-950 relative transition-colors duration-300">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
-          <div className="text-center md:text-left">
-            <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Stack</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Technical Arsenal</h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-lg">
-              I leverage a modern tech stack to build robust, scalable, and beautiful applications.
-            </p>
-          </div>
-          <Link 
-            to="/skills" 
-            className="hidden md:flex px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white rounded-xl transition-colors items-center gap-2 font-medium shadow-sm"
-          >
-            View Full Skillset <ArrowRight size={18} />
-          </Link>
+    <section id="skills" className="border-b-3 border-ink bg-surface">
+      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <SectionHeading
+            eyebrow="The stack"
+            tone="sky"
+            title="What I reach for"
+            lead="No percentage bars. Here is what each one actually does in my work."
+          />
+          <Button asChild variant="neutral" size="md" className="shrink-0 self-start md:self-end">
+            <Link to="/skills">
+              Full stack <ArrowRight size={16} />
+            </Link>
+          </Button>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SKILLS.map((skill) => (
-            <motion.div
-              key={skill.name}
-              variants={itemVariants}
-              className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary/30 dark:hover:border-slate-600 hover:shadow-lg hover:shadow-primary/5 dark:hover:bg-slate-900 group flex flex-col items-center justify-center text-center h-48 transition-colors transition-shadow duration-300"
-            >
-              <div 
-                className="w-16 h-16 mb-4 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-950 shadow-inner p-3 transition-transform group-hover:scale-110 duration-300"
-              >
-                {skill.imagePath ? (
-                  <img src={skill.imagePath} alt={skill.name} className="w-full h-full object-contain" />
-                ) : (
-                  <div style={{ color: skill.color }}>{getIcon(skill.iconStr)}</div>
-                )}
-              </div>
-              
-              <h3 className="text-slate-900 dark:text-white font-bold text-lg mb-1">{skill.name}</h3>
-              <p className="text-slate-500 text-sm font-medium">{skill.category.split('&')[0].trim()}</p>
-              
-              {/* Proficiency Bar */}
-              <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-full mt-4 overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000 group-hover:opacity-100 opacity-70"
-                  style={{ width: `${skill.level}%` }}
-                ></div>
-              </div>
-            </motion.div>
+            <li key={skill.name}>
+              <Card interactive className="flex h-full items-start gap-4 bg-paper p-5">
+                <span
+                  className={cn(
+                    'flex h-14 w-14 shrink-0 items-center justify-center border-3 border-ink p-2.5',
+                    toneBg[skill.tone]
+                  )}
+                >
+                  <img
+                    src={skill.imagePath}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-contain"
+                  />
+                </span>
+                <div>
+                  <h3 className="font-display text-xl uppercase leading-none tracking-tight">
+                    {skill.name}
+                  </h3>
+                  <p className="mt-2 text-sm font-medium leading-snug text-muted">{skill.note}</p>
+                </div>
+              </Card>
+            </li>
           ))}
-        </motion.div>
-        
-        <div className="mt-12 text-center md:hidden">
-           <Link to="/skills" className="inline-flex px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white rounded-xl transition-colors items-center gap-2 font-medium shadow-sm">
-            View Full Skillset <ArrowRight size={18} />
-           </Link>
-        </div>
+        </ul>
       </div>
     </section>
   );

@@ -1,133 +1,115 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { PERSONAL_INFO } from '../constants';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { cn } from '../lib/utils';
+import { Button } from './ui/Button';
+
+const navLinks = [
+  { name: 'Work', href: '/projects' },
+  { name: 'Stack', href: '/skills' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+];
 
 const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
+  // Close the sheet whenever the route changes under it.
+  React.useEffect(() => {
     setIsMobileMenuOpen(false);
-
-    if (href.startsWith('#')) {
-      const id = href.substring(1);
-      if (location.pathname !== '/') {
-        navigate('/');
-        setTimeout(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      } else {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate(href);
-      window.scrollTo(0, 0);
-    }
-  };
-
-  const navLinks = [
-    { name: 'Home', href: '/#home' },
-    { name: 'About', href: '/about' },
-    { name: 'Skills', href: '/skills' },
-    { name: 'Projects', href: '/projects' }, 
-    { name: 'Contact', href: '/contact' },
-  ];
+  }, [location.pathname]);
 
   return (
-    <nav 
-      className={`fixed w-full z-40 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/80 dark:bg-slate-900/90 backdrop-blur-md py-4 shadow-lg shadow-black/5 dark:shadow-black/10' 
-          : 'bg-transparent py-6'
-      }`}
-    >
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter" onClick={() => window.scrollTo(0,0)}>
-          {PERSONAL_INFO.name.split(' ')[0]}<span className="text-primary">.</span>
+    <header className="sticky top-0 z-40 border-b-3 border-ink bg-paper">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+        <Link
+          to="/"
+          className="group flex items-center gap-3"
+          aria-label={`${PERSONAL_INFO.name} — home`}
+        >
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center border-3 border-ink bg-flame font-display text-lg text-white shadow-brutal transition-transform duration-100 ease-brutal group-hover:rotate-[-4deg]">
+            HM
+          </span>
+          <span className="hidden font-display text-lg uppercase tracking-tight sm:block">
+            {PERSONAL_INFO.name}
+          </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-2 md:flex" aria-label="Main">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href.includes('#') ? '#' + link.href.split('#')[1] : link.href)}
-              className={`text-sm font-medium transition-colors ${
-                (location.pathname === link.href) || (location.pathname === '/' && link.href === '/#home')
-                ? 'text-primary dark:text-white font-bold' 
-                : 'text-slate-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary'
-              }`}
+            <NavLink
+              key={link.name}
+              to={link.href}
+              className={({ isActive }) =>
+                cn(
+                  'border-3 px-4 py-2 font-bold uppercase text-sm tracking-wide rounded-brutal',
+                  'transition-[transform,box-shadow,background-color] duration-100 ease-brutal',
+                  isActive
+                    ? 'border-ink bg-ink text-paper shadow-brutal'
+                    : 'border-transparent hover:border-ink hover:bg-acid hover:text-ink hover:shadow-brutal'
+                )
+              }
             >
               {link.name}
-            </a>
+            </NavLink>
           ))}
-          
-          <button 
-            onClick={toggleTheme}
-            className="p-2 rounded-full text-slate-600 dark:text-gray-400 hover:text-primary hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+        </nav>
 
-          <a 
-            href="/contact" 
-            onClick={(e) => handleNavClick(e, '/contact')}
-            className="px-4 py-2 bg-slate-900 dark:bg-white/5 hover:bg-slate-800 dark:hover:bg-white/10 border border-transparent dark:border-white/10 rounded-full text-sm font-medium text-white transition-all"
-          >
-            Hire Me
-          </a>
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="flex items-center gap-4 md:hidden">
-          <button 
+        <div className="flex items-center gap-2">
+          <Button
+            variant="neutral"
+            size="icon"
             onClick={toggleTheme}
-            className="text-slate-900 dark:text-white"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
-            {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
-          </button>
-          
-          <button 
-            className="text-slate-900 dark:text-white"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </Button>
+
+          <Button asChild variant="primary" size="md" className="hidden md:inline-flex">
+            <Link to="/contact">Hire me</Link>
+          </Button>
+
+          <Button
+            variant="neutral"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-expanded={isMobileMenuOpen}
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </Button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 p-6 flex flex-col gap-4 animate-in slide-in-from-top-5 shadow-xl">
-          {navLinks.map((link) => (
-             <a 
-              key={link.name} 
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href.includes('#') ? '#' + link.href.split('#')[1] : link.href)}
-              className="text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-white text-lg font-medium"
-            >
-              {link.name}
-            </a>
-          ))}
+        <div className="border-t-3 border-ink bg-surface p-4 md:hidden">
+          <nav className="flex flex-col gap-3" aria-label="Mobile">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.name}
+                to={link.href}
+                className={({ isActive }) =>
+                  cn(
+                    'border-3 border-ink px-4 py-3 font-display uppercase tracking-tight rounded-brutal shadow-brutal',
+                    isActive ? 'bg-ink text-paper' : 'bg-paper text-ink'
+                  )
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+            <Button asChild variant="primary" size="lg" className="mt-1 w-full">
+              <Link to="/contact">Hire me</Link>
+            </Button>
+          </nav>
         </div>
       )}
-    </nav>
+    </header>
   );
 };
 

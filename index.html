@@ -1,92 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Husnain Momin - Full-Stack Mobile Developer</title>
-    <!-- Keeping Tailwind CDN for simplicity, but in a full production app you might migrate to PostCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Husnain Momin — Flutter &amp; Node.js Developer</title>
+    <meta
+      name="description"
+      content="Husnain Momin builds cross-platform mobile apps with Flutter and the backends behind them. Based in Lahore, Pakistan."
+    />
+    <meta name="theme-color" content="#FFF6E9" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Husnain Momin — Flutter &amp; Node.js Developer" />
+    <meta
+      property="og:description"
+      content="Cross-platform mobile apps built with Flutter, and the Node.js backends behind them."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Outfit', 'sans-serif'],
-            },
-            colors: {
-              background: '#FFF1F2', // Very pale pink (Rose-50) instead of plain white
-  primary: '#E11D48',    // Rose-600 (Bold Hot Pink)
-  secondary: '#FB7185',  // Rose-400 (Softer Pink for accents)
-  text: {
-    dark: '#881337',     // Rose-900 (Deep Maroon - replaces black!)
-    muted: '#9F1239'     // Rose-800 (Softer Maroon)
-  },
-              pastel: {
-                peach: '#FEC0B3',
-                pink: '#FFD5E9',
-                lavender: '#D6BDE4',
-                coral: '#FF6B6B',
-                rose: '#E11D48',
-                green: '#00B894',
-                blue: '#4285F4',
-                spotify: '#1DB954',
-                violet: '#8B5CF6'
-              }
-            }
-          }
+      // Apply the stored theme before first paint so the page never flashes
+      // light before switching to dark.
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme =
+            stored ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme);
+        } catch (e) {
+          document.documentElement.classList.add('light');
         }
-      }
+      })();
     </script>
-    <style>
-      body {
-        /* Default base styles are handled by React classes, but we set a base here */
-        overflow-x: hidden;
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #CBD5E0;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #A0AEC0;
-      }
-      .dark ::-webkit-scrollbar-track {
-        background: #020617;
-      }
-      .dark ::-webkit-scrollbar-thumb {
-        background: #334155;
-      }
-      .dark ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
-    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "framer-motion": "https://esm.sh/framer-motion@^12.34.0"
-  }
-}
-</script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
-    <!-- Vite entry point -->
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

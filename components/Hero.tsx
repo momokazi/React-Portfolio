@@ -1,112 +1,101 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail, Instagram } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, Instagram, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { PERSONAL_INFO } from '../constants';
+import { Badge } from './ui/Badge';
+import { Button } from './ui/Button';
 
 const Hero: React.FC = () => {
-  const { scrollY } = useScroll();
-  
-  // Parallax effects
-  const yBg1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const yBg2 = useTransform(scrollY, [0, 500], [0, 150]);
-
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-50 dark:bg-slate-950 pt-20 pb-10 transition-colors duration-300">
-      
-      {/* Background Ambience */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
-          style={{ y: yBg1 }}
-          className="absolute top-0 right-0"
-        >
-           <div className="w-[600px] h-[600px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[120px] opacity-40 dark:opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
-        </motion.div>
+    <section id="home" className="border-b-3 border-ink">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+        {/* Copy */}
+        <div>
+          <Badge variant="acid" className="mb-6 shadow-brutal">
+            <span className="mr-1 inline-block h-2 w-2 bg-ink animate-blink" aria-hidden />
+            Open to work
+          </Badge>
 
-        <motion.div 
-          style={{ y: yBg2 }}
-          className="absolute bottom-0 left-0"
-        >
-          <div className="w-[500px] h-[500px] bg-secondary/20 dark:bg-secondary/10 rounded-full blur-[100px] opacity-40 dark:opacity-30 transform -translate-x-1/3 translate-y-1/4"></div>
-        </motion.div>
-      </div>
-
-      <div className="container mx-auto px-6 z-10 flex flex-col items-center">
-        
-        {/* Profile Image */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative mb-10"
-        >
-           <div className="relative w-48 h-48 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 group">
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent z-10"></div>
-              <img 
-                src={PERSONAL_INFO.avatar} 
-                alt={PERSONAL_INFO.name} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-              />
-           </div>
-           
-           <div className="absolute -top-4 -right-4 w-20 h-20 bg-secondary rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob"></div>
-           <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-primary rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>
-        </motion.div>
-
-        {/* Text Content */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 leading-tight tracking-tight">
-            Building <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Scalable</span> <br className="hidden md:block" />
-            Mobile Solutions.
+          <h1 className="font-display text-[clamp(2.75rem,9vw,6rem)] uppercase leading-[0.86] tracking-tight">
+            Flutter
+            <br />
+            <span className="text-flame">apps</span> that
+            <br />
+            ship.
           </h1>
 
-          <p className="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="mt-7 max-w-xl text-lg font-medium leading-relaxed text-muted md:text-xl">
             {PERSONAL_INFO.bio}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-12">
-            <a 
-              href="#projects"
-              className="px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-2xl transition-all flex items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1"
-            >
-              View Projects <ArrowRight size={20} />
-            </a>
-            <a 
-              href="#contact"
-              className="px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-white font-medium rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 dark:hover:border-slate-700 transition-all flex items-center gap-2 shadow-sm"
-            >
-              Contact Me
-            </a>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Button asChild variant="primary" size="lg">
+              <Link to="/projects">
+                See the work <ArrowRight size={18} />
+              </Link>
+            </Button>
+            <Button asChild variant="neutral" size="lg">
+              <Link to="/contact">Get in touch</Link>
+            </Button>
           </div>
 
-          <div className="flex items-center justify-center gap-8">
-            <SocialLink href={PERSONAL_INFO.github} icon={<Github size={22} />} label="GitHub" />
-            <SocialLink href={PERSONAL_INFO.linkedin} icon={<Linkedin size={22} />} label="LinkedIn" />
-            <SocialLink href={PERSONAL_INFO.instagram} icon={<Instagram size={22} />} label="Instagram" />
-            <SocialLink href={`mailto:${PERSONAL_INFO.email}`} icon={<Mail size={22} />} label="Email" />
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <SocialLink href={PERSONAL_INFO.github} label="GitHub">
+              <Github size={18} />
+            </SocialLink>
+            <SocialLink href={PERSONAL_INFO.linkedin} label="LinkedIn">
+              <Linkedin size={18} />
+            </SocialLink>
+            <SocialLink href={PERSONAL_INFO.instagram} label="Instagram">
+              <Instagram size={18} />
+            </SocialLink>
+            <SocialLink href={`mailto:${PERSONAL_INFO.email}`} label="Email">
+              <Mail size={18} />
+            </SocialLink>
           </div>
-        </motion.div>
+        </div>
 
+        {/* Portrait — tilted frame, hard shadow, sticker overlays */}
+        <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+          <div className="absolute -right-3 -top-3 hidden h-full w-full border-3 border-ink bg-sky lg:block" aria-hidden />
+          <div className="relative rotate-[-2deg] border-3 border-ink bg-surface p-3 shadow-brutal-xl transition-transform duration-150 ease-brutal hover:rotate-0">
+            <img
+              src={PERSONAL_INFO.avatar}
+              alt={PERSONAL_INFO.name}
+              loading="eager"
+              className="aspect-[4/5] w-full border-3 border-ink object-cover"
+            />
+            <div className="mt-3 flex items-center justify-between gap-2 font-mono text-xs font-bold uppercase">
+              <span className="flex items-center gap-1.5">
+                <MapPin size={13} /> {PERSONAL_INFO.location}
+              </span>
+              <span className="text-muted">/ {PERSONAL_INFO.tagline}</span>
+            </div>
+          </div>
+
+          {/* Top-left so it never lands on the caption row below the photo. */}
+          <span className="absolute -left-4 -top-4 rotate-[-8deg] border-3 border-ink bg-acid px-3 py-2 font-display text-sm uppercase text-ink shadow-brutal">
+            Est. 2022
+          </span>
+        </div>
       </div>
     </section>
   );
 };
 
-const SocialLink = ({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) => (
-  <a 
-    href={href} 
-    target="_blank" 
+const SocialLink: React.FC<{ href: string; label: string; children: React.ReactNode }> = ({
+  href,
+  label,
+  children,
+}) => (
+  <a
+    href={href}
+    target="_blank"
     rel="noopener noreferrer"
-    className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors group"
+    className="flex items-center gap-2 border-3 border-ink bg-surface px-3 py-2 font-mono text-xs font-bold uppercase tracking-wide shadow-brutal transition-[transform,box-shadow,background-color] duration-100 ease-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-acid hover:shadow-none"
   >
-    <div className="p-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group-hover:border-primary/50 dark:group-hover:border-slate-600 group-hover:bg-slate-50 dark:group-hover:bg-slate-800 transition-all shadow-sm">
-      {icon}
-    </div>
-    <span className="hidden sm:inline text-sm font-medium">{label}</span>
+    {children}
+    {label}
   </a>
 );
 

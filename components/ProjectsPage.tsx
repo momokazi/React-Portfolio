@@ -1,147 +1,111 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { Search, X } from 'lucide-react';
 import { PROJECTS } from '../constants';
-import { Github, ArrowUpRight, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { cn } from '../lib/utils';
+import { ProjectCard } from './ProjectCard';
+import { Input } from './ui/Field';
+import { SectionHeading } from './ui/SectionHeading';
+
+const FILTERS = ['All', 'Mobile', 'Web', 'Tool'] as const;
+type Filter = (typeof FILTERS)[number];
 
 const ProjectsPage: React.FC = () => {
-  const [filter, setFilter] = useState<'All' | 'Mobile' | 'Web' | 'Tool'>('All');
+  const [filter, setFilter] = useState<Filter>('All');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredProjects = PROJECTS.filter(project => {
-    const matchesCategory = filter === 'All' || project.category === filter;
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          project.overview.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filtered = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    return PROJECTS.filter((project) => {
+      const matchesCategory = filter === 'All' || project.category === filter;
+      const matchesSearch =
+        !query ||
+        project.title.toLowerCase().includes(query) ||
+        project.overview.toLowerCase().includes(query) ||
+        project.techStack.some((tech) => tech.toLowerCase().includes(query));
+      return matchesCategory && matchesSearch;
+    });
+  }, [filter, searchTerm]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24 transition-colors duration-300">
-      <div className="container mx-auto px-6">
-        
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">Project Gallery</h1>
-          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-            A complete collection of my open-source contributions, client work, and experimental apps.
-          </p>
+    <div>
+      <section className="border-b-3 border-ink bg-surface">
+        <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+          <SectionHeading
+            eyebrow="Work"
+            tone="mint"
+            title="Every project"
+            lead="Six builds — mobile apps, one Flutter Web dashboard, and a package I published because I kept rewriting it."
+          />
         </div>
+      </section>
 
-        {/* Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-          
-          {/* Filters */}
-          <div className="flex p-1 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-            {['All', 'Mobile', 'Web', 'Tool'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat as any)}
-                className={`relative px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                  filter === cat 
-                    ? 'text-white' 
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                {filter === cat && (
-                  <motion.div
-                    layoutId="activeFilter"
-                    className="absolute inset-0 bg-primary rounded-lg shadow-sm"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className="relative z-10">{cat}</span>
-              </button>
-            ))}
+      <section className="mx-auto max-w-7xl px-4 py-12 md:px-8 md:py-16">
+        <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          {/* Filters — a filled block marks the active one, no sliding pill */}
+          <div
+            className="flex flex-wrap gap-2"
+            role="group"
+            aria-label="Filter projects by category"
+          >
+            {FILTERS.map((category) => {
+              const isActive = filter === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setFilter(category)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    'border-3 border-ink rounded-brutal px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                    'transition-[transform,box-shadow] duration-100 ease-brutal',
+                    isActive
+                      ? 'bg-ink text-paper shadow-none translate-x-[3px] translate-y-[3px]'
+                      : 'bg-surface text-ink shadow-brutal hover:bg-acid'
+                  )}
+                >
+                  {category}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Search */}
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
-            <input 
-              type="text" 
-              placeholder="Search projects..."
+          <div className="relative w-full md:w-80">
+            <Search
+              size={18}
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
+              aria-hidden
+            />
+            <Input
+              type="search"
+              placeholder="Search projects"
+              aria-label="Search projects"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-3 text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary placeholder-slate-400 dark:placeholder-slate-600 transition-all shadow-sm"
+              onChange={(event) => setSearchTerm(event.target.value)}
+              className="pl-11"
             />
           </div>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              layout
-              key={project.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              className="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
-            >
-               {/* Image Cap */}
-               <div className="h-48 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent z-10"></div>
-                  <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  
-                  <div className="absolute top-4 right-4 z-20">
-                     <span className="px-3 py-1 bg-white/90 dark:bg-slate-950/80 backdrop-blur-md text-slate-900 dark:text-white text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
-                        {project.category}
-                     </span>
-                  </div>
-               </div>
+        <p aria-live="polite" className="mb-6 font-mono text-xs font-bold uppercase tracking-widest text-muted">
+          {filtered.length} {filtered.length === 1 ? 'project' : 'projects'}
+        </p>
 
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-4">
-                   <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-slate-50 dark:bg-slate-800 p-1 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-                         <img src={project.logoUrl} alt="logo" className="w-full h-full object-contain" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{project.title}</h3>
-                        <p className="text-xs text-slate-500 uppercase tracking-wide">{project.subtitle}</p>
-                      </div>
-                   </div>
-                </div>
-
-                <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1 line-clamp-3">
-                  {project.overview}
-                </p>
-
-                <div className="space-y-4 mt-auto">
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.slice(0, 3).map(tech => (
-                      <span key={tech} className="text-xs px-2 py-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-slate-500 dark:text-slate-400">
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="text-xs px-2 py-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-slate-500">+{project.techStack.length - 3}</span>
-                    )}
-                  </div>
-                  
-                  <div className="flex gap-2">
-                     <a href={project.githubUrl} target="_blank" className="flex-1 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-white rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                       <Github size={16} /> Code
-                     </a>
-                     {project.demoUrl && (
-                        <a href={project.demoUrl} target="_blank" className="flex-1 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                          <ArrowUpRight size={16} /> Demo
-                        </a>
-                     )}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        {filteredProjects.length === 0 && (
-           <div className="text-center py-20">
-              <h3 className="text-2xl text-slate-500 font-bold mb-2">No projects found</h3>
-              <p className="text-slate-600 dark:text-slate-400">Try adjusting your filters or search term.</p>
-           </div>
+        {filtered.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="border-3 border-ink bg-surface p-12 text-center shadow-brutal-md">
+            <X size={40} className="mx-auto mb-4" aria-hidden />
+            <h3 className="font-display text-2xl uppercase tracking-tight">Nothing matches</h3>
+            <p className="mt-2 font-medium text-muted">
+              Try a different category or clear the search.
+            </p>
+          </div>
         )}
-
-      </div>
+      </section>
     </div>
   );
 };

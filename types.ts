@@ -1,3 +1,5 @@
+/** Flat palette tokens from tailwind.config.js. Cards and badges key off these. */
+export type Tone = 'flame' | 'acid' | 'sky' | 'grape' | 'rose' | 'mint';
 
 export interface Project {
   id: string;
@@ -6,22 +8,27 @@ export interface Project {
   overview: string;
   features: string[];
   techStack: string[];
-  category: 'Mobile' | 'Web' | 'Tool' | 'Other'; // Added category
-  color: string;
-  logoUrl: string; // URL for the project logo
+  category: 'Mobile' | 'Web' | 'Tool';
+  tone: Tone;
+  /** URL for the project logo. */
+  logoUrl: string;
+  /** Year or range the work happened in. */
+  year: string;
   githubUrl?: string;
   demoUrl?: string;
+  /** Real screenshot, once one exists. Cards fall back to a type-led block. */
   imageUrl?: string;
 }
 
 export interface Skill {
   name: string;
   iconStr: string;
-  imagePath?: string; // Optional path for actual logo image
-  color: string;
-  textColor: string;
+  /** Devicon/logo URL. */
+  imagePath?: string;
+  tone: Tone;
   category: string;
-  level: number;
+  /** What this is actually used for here — replaces a meaningless percentage. */
+  note: string;
 }
 
 export interface ChatMessage {
@@ -38,5 +45,6 @@ export interface ExperienceItem {
   type: string;
   location: string;
   description: string;
-  logo?: string; // URL for company logo
+  /** URL for company logo. */
+  logo?: string;
 }
